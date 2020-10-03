@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='gicd',
-    version='1.0',
+    version='1.0.2',
     author='Zeke Marffy',
     author_email='zmarffy@yahoo.com',
     packages=setuptools.find_packages(),
