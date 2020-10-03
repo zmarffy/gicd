@@ -11,7 +11,7 @@
 Decorate a function with it:
 
 ```python
-from gcid import auto_create_issue
+from gicd import auto_create_issue
 
 @auto_create_issue(repo_owner="zmarffy", repo_name="cli-test-repo", exceptions=(IndexError, ValueError))
 def error_prone_function():
