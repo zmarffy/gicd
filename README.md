@@ -22,12 +22,35 @@ def error_prone_function():
 
 Then call the function:
 
-```python
+```text
 error_prone_function()
 ```
 
-On the off chance that the function raises an exception, it will create a issue in the GitHub repo specified in the decorator.
+In the off chance that the function raises an exception, it will create a issue in the GitHub repo specified in the decorator.
 
 You can have it do this with all exceptions (default behavior), or, if you specify the `exceptions` parameter, it will only create an issue when those specific exceptions are thrown.
+
+If you want to integrate this info your own app without having to specify the `repo_owner` and `repo_name` keyword arguments in the decorator, you can place a file with a name of your choice in a certain folder, formatted like this example:
+
+```text
+zmarffy
+cli-test-repo
+```
+
+This is a useful file for installers to create, then.
+
+It would make sense for us to call that file `cli-test`, in this example case. You can then use the decorator with only the `app_name` keyword argument, set to the name of the file you created:
+
+```text
+@auto_create_issue(app_name="cli-test", exceptions=(IndexError, ValueError))
+```
+
+The folder you place it in is:
+
+| OS | Folder |
+| --- | --- |
+| Linux | `/etc/githubreporter/` |
+| Windows | `%PROGRAMDATA%\githubreporter\` |
+| macOS | `/Library/Application Support/githubreporter/` |
 
 There's really not that much else to say about this tiny, somewhat humorous, tool.

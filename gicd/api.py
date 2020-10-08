@@ -1,11 +1,11 @@
 import logging
+import os
+import platform
 import traceback
 from functools import wraps
-import os
 from subprocess import check_output
 
 import zmtools
-
 
 LOGGER = logging.getLogger(__name__)
 
@@ -24,7 +24,14 @@ def auto_create_issue(app_name=None, repo_owner=None, repo_name=None, exceptions
                 nonlocal app_name, repo_name, repo_owner, exceptions
                 if not exceptions or any(isinstance(e, etype) for etype in exceptions):
                     if app_name is not None:
-                        with open(os.path.join(os.sep, "etc", "githubreporter", app_name)) as f:
+                        if platform.system() == "Darwin":
+                            filename = os.path.join(os.sep, "Library", "Application Support", "githubreporter")
+                        elif platform.system() == "Windows":
+                            filename = os.path.join(os.environ["PROGRAMDATA"], "githubreporter")
+                        else:
+                            filename = os.path.join(
+                                os.sep, "etc", "githubreporter", app_name)
+                        with open(filename) as f:
                             repo_owner, repo_name = [
                                 l.strip() for l in f.readlines()]
                     elif repo_owner is None or repo_name is None:
