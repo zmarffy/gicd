@@ -49,8 +49,8 @@ The folder you place it in is:
 
 | OS | Folder |
 | --- | --- |
-| Linux | `/etc/githubreporter/` |
-| Windows | `%PROGRAMDATA%\githubreporter\` |
-| macOS | `/Library/Application Support/githubreporter/` |
+| Linux | `/etc/ghinfo/` |
+| Windows | `%PROGRAMDATA%\ghinfo\` |
+| macOS | `/Library/Application Support/ghinfo/` |
 
 There's really not that much else to say about this tiny, somewhat humorous, tool.

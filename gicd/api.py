@@ -11,10 +11,30 @@ LOGGER = logging.getLogger(__name__)
 
 
 def _create_issue(issue_title, issue_body, repo_owner, repo_name, issue_label="crashautoreport"):
-    return check_output(["gh", "issue", "create", "--title", issue_title, "--body", issue_body, "--label", issue_label, "-R", f"{repo_owner}/{repo_name}"], shell=False)
+    """Create an issue on GitHub's issues section for a specific repo
+
+    Args:
+        issue_title (str): The title of the issue to create
+        issue_body (str): The body of the issue to create
+        repo_owner (str): The username of the owner of the repo to create the issue for
+        repo_name (str): The repo name to create the issue for
+        issue_label (str, optional): The label to attach to the issue. Defaults to "crashautoreport".
+
+    Returns:
+        str: The URL of the created issue
+    """
+    return check_output(["gh", "issue", "create", "--title", issue_title, "--body", issue_body, "--label", issue_label, "-R", f"{repo_owner}/{repo_name}"])
 
 
-def auto_create_issue(app_name=None, repo_owner=None, repo_name=None, exceptions=[]):
+def auto_create_issue(app_name=None, repo_owner=None, repo_name=None, exceptions=None):
+    """Decorator to create a GitHub issue on exception throw
+
+    Args:
+        app_name (str, optional): The app name that relates to the repo. This is used to find the repo name and repo owner if they are not provided. Defaults to None.
+        repo_owner (str): The username of the owner of the repo to create the issue for
+        repo_name (str): The repo name to create the issue for
+        exceptions (list[Exception], optional): The exception types to create an issue for. None means create te issue for any exception. Defaults to None.
+    """
     def actual_decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -25,12 +45,12 @@ def auto_create_issue(app_name=None, repo_owner=None, repo_name=None, exceptions
                 if not exceptions or any(isinstance(e, etype) for etype in exceptions):
                     if app_name is not None:
                         if platform.system() == "Darwin":
-                            filename = os.path.join(os.sep, "Library", "Application Support", "githubreporter")
+                            filename = os.path.join(os.sep, "Library", "Application Support", "ghinfo")
                         elif platform.system() == "Windows":
-                            filename = os.path.join(os.environ["PROGRAMDATA"], "githubreporter")
+                            filename = os.path.join(os.environ["PROGRAMDATA"], "ghinfo")
                         else:
                             filename = os.path.join(
-                                os.sep, "etc", "githubreporter", app_name)
+                                os.sep, "etc", "ghinfo", app_name)
                         with open(filename) as f:
                             repo_owner, repo_name = [
                                 l.strip() for l in f.readlines()]

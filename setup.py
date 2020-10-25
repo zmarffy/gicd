@@ -1,8 +1,14 @@
+import re
+from os.path import join as join_path
+
 import setuptools
+
+with open(join_path("gicd", "__init__.py"), encoding="utf8") as f:
+    version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
 
 setuptools.setup(
     name='gicd',
-    version='1.0.3',
+    version=version,
     author='Zeke Marffy',
     author_email='zmarffy@yahoo.com',
     packages=setuptools.find_packages(),
