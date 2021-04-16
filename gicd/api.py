@@ -22,13 +22,13 @@ class GICD():
         self.repo_name = repo_name
 
 
-    def _create_issue(self, issue_title: str, issue_body: str, issue_label: str = "crashautoreport") -> str:
+    def _create_issue(self, issue_title: str, issue_body: str, issue_label: str = "bug") -> str:
         """Create an issue on GitHub's issues section for a specific repo
 
         Args:
             issue_title (str): The title of the issue to create
             issue_body (str): The body of the issue to create
-            issue_label (str, optional): The label to attach to the issue. Defaults to "crashautoreport".
+            issue_label (str, optional): The label to attach to the issue. Defaults to "bug".
 
         Returns:
             str: The URL of the created issue
@@ -40,7 +40,7 @@ class GICD():
         """Decorator to create a GitHub issue on exception throw
 
         Args:
-            exceptions (list[Exception], optional): The exception types to create an issue for. None means create te issue for any exception. Defaults to None.
+            exceptions (list[Exception], optional): The exception types to create an issue for. If None, create the issue for any exception. Defaults to None.
         """
         def actual_decorator(func):
             @wraps(func)
