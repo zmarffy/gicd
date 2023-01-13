@@ -4,17 +4,15 @@ version = "0.0.0"
 description = "Python decorator that will automatcially create a GitHub Issue if a decorated function throws an exception"
 authors = ["Zeke Marffy <zmarffy@me.com>"]
 readme = "README.md"
-packages = [{include = "gicd"}]
+packages = [{ include = "gicd" }]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
 pre-commit = "^2.21.0"
 isort = "^5.11.4"
-
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.2.0"
