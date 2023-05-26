@@ -24,7 +24,6 @@ def gicd(
     Returns:
         Any: The return value of the decorated function.
     """
-
     def actual_decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
