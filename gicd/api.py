@@ -13,7 +13,7 @@ def gicd(
     issue_label: str = "bug",
     exception_types: Optional[List[Exception]] = None,
 ) -> Any:
-    """Decorator to create a GitHub issue on exception throw
+    """Decorator to create a GitHub issue on exception throw.
 
     Args:
         repo_owner (str): The owner of the repo to create the issue in.
@@ -35,7 +35,7 @@ def gicd(
                     isinstance(e, e_type) for e_type in exception_types  # type: ignore
                 ):
                     s = str(e)
-                    issue = (
+                    issue_url = (
                         subprocess.run(
                             [
                                 "gh",
@@ -55,7 +55,9 @@ def gicd(
                         .stdout.decode()
                         .strip()
                     )
-                    LOGGER.info(f"A GitHub issue was created at {issue}")
+                    LOGGER.info(
+                        f"A GitHub issue for the thrown exception was created at {issue_url}"
+                    )
                 raise e
 
         return wrapper
