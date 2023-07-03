@@ -1,6 +1,6 @@
 # `gicd`
 
-`gicd` contains a Python class that provides a decorator that will automatcially create an issue on GitHub if a decorated function throws an exception. That's it!
+`gicd` contains a Python function that provides a decorator that will automatcially create an issue on GitHub if a decorated function throws an exception. That's it!
 
 ## Requirements
 
